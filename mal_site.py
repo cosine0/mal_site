@@ -123,7 +123,7 @@ def main():
         print 'Usage: python mal_site.py victim_ip [interface_name]'
         exit(1)
 
-    with open('mal_sites.txt') as f:
+    with open('mal_site.txt') as f:
         for url in f.read().splitlines():
             mal_sites.add(urlparse(url).netloc)
 
