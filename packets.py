@@ -84,7 +84,11 @@ class MacAddress(object):
 
 
 class Ethernet(object):
+    HEADER_LENGTH = 14
+
     TYPE_ARP = 0x0806
+    TYPE_IPv4 = 0x0800
+
     BROADCAST = MacAddress('ff:ff:ff:ff:ff:ff')
 
     def __init__(self, raw_packet=None):
