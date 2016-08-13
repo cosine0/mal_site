@@ -228,7 +228,7 @@ class IP(object):
             self.type_of_service = struct.unpack('!B', raw_ip[1])[0]
             self.total_length = struct.unpack('!H', raw_ip[2:4])[0]
             self.fragment_identifier = struct.unpack('!H', raw_ip[4:6])
-            self.fragment_flag = struct.unpack('!H', raw_ip[6])[0] & 0b111
+            self.fragment_flag = struct.unpack('!B', raw_ip[6])[0] & 0b111
             self.fragment_offset = struct.unpack('!H', raw_ip[6:8])[0] >> 3
             self.time_to_live = struct.unpack('!B', raw_ip[8])[0]
             self.protocol = struct.unpack('!B', raw_ip[9])[0]
