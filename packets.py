@@ -223,13 +223,13 @@ class IP(object):
             raw_ip = self.ethernet.data
 
             first_byte = struct.unpack('!B', raw_ip[0])[0]
-            self.version = first_byte & 0xf
-            self.header_length_in_words = first_byte >> 4
+            self.version = first_byte >> 4
+            self.header_length_in_words = first_byte & 0xf
             self.type_of_service = struct.unpack('!B', raw_ip[1])[0]
             self.total_length = struct.unpack('!H', raw_ip[2:4])[0]
             self.fragment_identifier = struct.unpack('!H', raw_ip[4:6])[0]
-            self.fragment_flag = struct.unpack('!B', raw_ip[6])[0] & 0b111
-            self.fragment_offset = struct.unpack('!H', raw_ip[6:8])[0] >> 3
+            self.fragment_flag = struct.unpack('!B', raw_ip[6])[0] >> 5
+            self.fragment_offset = struct.unpack('!H', raw_ip[6:8])[0] & 0x1fff
             self.time_to_live = struct.unpack('!B', raw_ip[8])[0]
             self.protocol = struct.unpack('!B', raw_ip[9])[0]
             self.header_checksum = struct.unpack('!H', raw_ip[10:12])[0]
@@ -273,8 +273,8 @@ class TCP(object):
         self.destination_port = struct.unpack('!H', raw_tcp[2:4])[0]
         self.sequence_number = struct.unpack('!I', raw_tcp[4:8])[0]
         self.acknowledge_number = struct.unpack('!I', raw_tcp[8:12])[0]
-        self.data_offset_in_word = struct.unpack('!B', raw_tcp[12])[0] & 0xf
-        self.flags = struct.unpack('!H', raw_tcp[12:14])[0] >> 4
+        self.data_offset_in_word = struct.unpack('!B', raw_tcp[12])[0] >> 4
+        self.flags = struct.unpack('!H', raw_tcp[12:14])[0] & 0x7ff
         self.window_size = struct.unpack('!H', raw_tcp[14:16])[0]
         self.checksum = struct.unpack('!H', raw_tcp[16:18])[0]
         self.urgent_pointer = struct.unpack('!H', raw_tcp[18:20])[0]
