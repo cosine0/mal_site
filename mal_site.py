@@ -97,7 +97,7 @@ def filter_and_relay_ip():
                     first_line = relaying_tcp.payload.split('\n', 1)[0]
                     if 'HTTP/' in first_line:
                         try:
-                            host = re.search(r'\nHost: (.*)', relaying_tcp.payload).group(1)
+                            host = re.search(r'Host: (.*)', relaying_tcp.payload).group(1).strip()
                             if host in mal_sites:
                                 with open('log.txt', 'a') as log_file:
                                     log_file.write('{} tried to access mal site {}\n'.format(victim_ip.in_string, host))
